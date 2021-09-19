@@ -8,6 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import TableHead from "@mui/material/TableHead";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
@@ -16,7 +17,6 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../config/config";
-
 
 interface TablePaginationActionsProps {
   count: number;
@@ -132,6 +132,18 @@ const URLDataList = (props) => {
       <h1> Top 100 Most Visted URL</h1>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+          <TableHead>
+            <TableRow>
+              <TableCell style={{}} key="website">
+                Website
+              </TableCell>
+              <TableCell key="url">Shorten Url</TableCell>
+              <TableCell align="right" key="viewed">
+                Viewed
+              </TableCell>
+            </TableRow>
+          </TableHead>
+
           <TableBody>
             {(rowsPerPage > 0
               ? urls.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -141,14 +153,12 @@ const URLDataList = (props) => {
                 <TableCell component="th" scope="row">
                   {url.fullUrl}
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
+                <TableCell>
                   <Link
                     to={`/${url.shortUrl}`}
                   >{`${BASE_URL}${url.shortUrl}`}</Link>
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
-                  {url.visited | 0}
-                </TableCell>
+                <TableCell align="right">{url.visited | 0}</TableCell>
               </TableRow>
             ))}
             {emptyRows > 0 && (
